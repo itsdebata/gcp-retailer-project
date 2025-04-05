@@ -10,40 +10,40 @@ from airflow.providers.google.cloud.operators.dataproc import (
 )
 
 # define the variables
-PROJECT_ID = "avd-databricks-demo"
+newproject68 = "NewProject68"
 REGION = "us-east1"
-CLUSTER_NAME = "my-demo-cluster"
-COMPOSER_BUCKET = "us-central1-demo-instance-9e2e6451-bucket"
+my-demo-cluster = "my-demo-cluster"
+COMPOSER_BUCKET = "us-central1-demo-instance-a842e2c6-bucket"
 
 GCS_JOB_FILE_1 = f"gs://{COMPOSER_BUCKET}/data/INGESTION/retailerMysqlToLanding.py"
 PYSPARK_JOB_1 = {
-    "reference": {"project_id": PROJECT_ID},
-    "placement": {"cluster_name": CLUSTER_NAME},
+    "reference": {"newproject68": newproject68},
+    "placement": {"my-demo-cluster": my-demo-cluster},
     "pyspark_job": {"main_python_file_uri": GCS_JOB_FILE_1},
 }
 
 GCS_JOB_FILE_2 = f"gs://{COMPOSER_BUCKET}/data/INGESTION/supplierMysqlToLanding.py"
 PYSPARK_JOB_2 = {
-    "reference": {"project_id": PROJECT_ID},
-    "placement": {"cluster_name": CLUSTER_NAME},
+    "reference": {"newproject68": newproject68},
+    "placement": {"my-demo-cluster": my-demo-cluster},
     "pyspark_job": {"main_python_file_uri": GCS_JOB_FILE_2},
 }
 
 GCS_JOB_FILE_3 = f"gs://{COMPOSER_BUCKET}/data/INGESTION/customerReviews_API.py"
 PYSPARK_JOB_3 = {
-    "reference": {"project_id": PROJECT_ID},
-    "placement": {"cluster_name": CLUSTER_NAME},
+    "reference": {"newproject68": newproject68},
+    "placement": {"my-demo-cluster": my-demo-cluster},
     "pyspark_job": {"main_python_file_uri": GCS_JOB_FILE_3},
 }
 
 
 ARGS = {
-    "owner": "SHAIK SAIDHUL",
+    "owner": "SAI PRASAD DEBATA",
     "start_date": None,
     "depends_on_past": False,
     "email_on_failure": False,
     "email_on_retry": False,
-    "email": ["***@gmail.com"],
+    "email": ["avddatapracticeenng@gmail.com"],
     "email_on_success": False,
     "retries": 1,
     "retry_delay": timedelta(minutes=5)
@@ -61,37 +61,37 @@ with DAG(
     # define the Tasks
     start_cluster = DataprocStartClusterOperator(
         task_id="start_cluster",
-        project_id=PROJECT_ID,
+        newproject68=newproject68,
         region=REGION,
-        cluster_name=CLUSTER_NAME,
+        my-demo-cluster=my-demo-cluster,
     )
 
     pyspark_task_1 = DataprocSubmitJobOperator(
         task_id="pyspark_task_1", 
         job=PYSPARK_JOB_1, 
         region=REGION, 
-        project_id=PROJECT_ID
+        newproject68=newproject68
     )
 
     pyspark_task_2 = DataprocSubmitJobOperator(
         task_id="pyspark_task_2", 
         job=PYSPARK_JOB_2, 
         region=REGION, 
-        project_id=PROJECT_ID
+        newproject68=newproject68
     )
 
     pyspark_task_3 = DataprocSubmitJobOperator(
         task_id="pyspark_task_3", 
         job=PYSPARK_JOB_3, 
         region=REGION, 
-        project_id=PROJECT_ID
+        newproject68=newproject68
     )
 
     stop_cluster = DataprocStopClusterOperator(
         task_id="stop_cluster",
-        project_id=PROJECT_ID,
+        newproject68=newproject68,
         region=REGION,
-        cluster_name=CLUSTER_NAME,
+        my-demo-cluster=my-demo-cluster,
     )
 
 # define the task dependencies
